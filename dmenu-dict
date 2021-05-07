@@ -1,0 +1,11 @@
+#!/bin/bash
+
+word=$(echo " " | dmenu -fn "FontAwesome" -p  -l 5 -sb '#f5f5f5' -sf '#484639' -nb '#484639' -nf '#f5f5f5')
+
+if [ -n "$word" ]; then
+  echo $word | dmenu -fn "FontAwesome" -p  -l 5 -sb '#f5f5f5' -sf '#484639' -nb '#484639' -nf '#f5f5f5'
+  response=$(curl --location --request GET "https://wordsapiv1.p.rapidapi.com/words/$word/definitions" \
+          --header 'x-rapidapi-key: YOUR-API-KEY' \
+          --header 'x-rapidapi-host: wordsapiv1.p.rapidapi.com')
+  echo $response | dmenu -fn "FontAwesome" -p  -l 5 -sb '#f5f5f5' -sf '#484639' -nb '#484639' -nf '#f5f5f5'  
+fi
