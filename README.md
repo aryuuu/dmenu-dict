@@ -9,6 +9,6 @@
 
 
 ## Prerequisite
-- dmenu
+- [dmenu](https://tools.suckless.org/dmenu/)
 - curl
 - [jq](https://stedolan.github.io/jq/) 
