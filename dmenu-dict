@@ -4,10 +4,10 @@ word=$(echo " " | dmenu -fn "FontAwesome" -p " seach for "  -l 5 -sb '#f5f5f5
 
 if [ -n "$word" ]; then
   response=$(curl --location --request GET "https://wordsapiv1.p.rapidapi.com/words/$word/definitions" \
-          --header 'x-rapidapi-key: YOUR-API-KEY' \             
+          --header 'x-rapidapi-key: YOUR-API-KEY' \
           --header 'x-rapidapi-host: wordsapiv1.p.rapidapi.com')
-  echo $response | jq ".definitions[] | { def: .definition }" | dmenu \
+  notif=$(echo $response | jq '.definitions[]? | "("+.partOfSpeech+") "+.definition ' | dmenu \
     -fn "FontAwesome" -p " results " \
     -l 5 -sb '#f5f5f5' -sf '#484639' \
-    -nb '#484639' -nf '#f5f5f5'  
+    -nb '#484639' -nf '#f5f5f5')  
 fi

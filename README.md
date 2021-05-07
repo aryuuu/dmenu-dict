@@ -1,6 +1,6 @@
 # dmenu Dictionary
 
-![demo](img/demo.gif)
+![demo](img/demo2.gif)
 
 ## Installation
 - Clone this repository
