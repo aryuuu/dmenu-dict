@@ -1,13 +1,17 @@
 #!/bin/bash
-
-word=$(echo " " | dmenu -fn "FontAwesome" -p " seach for "  -l 5 -sb '#f5f5f5' -sf '#484639' -nb '#484639' -nf '#f5f5f5')
+source apikey
+word=$(echo " " | dmenu -fn "FontAwesome" -p " seach for "  -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2')
 
 if [ -n "$word" ]; then
   response=$(curl --location --request GET "https://wordsapiv1.p.rapidapi.com/words/$word/definitions" \
-          --header 'x-rapidapi-key: YOUR-API-KEY' \
+          --header "x-rapidapi-key: $APIKEY" \
           --header 'x-rapidapi-host: wordsapiv1.p.rapidapi.com')
   notif=$(echo $response | jq '.definitions[]? | "("+.partOfSpeech+") "+.definition ' | dmenu \
     -fn "FontAwesome" -p " results " \
-    -l 5 -sb '#f5f5f5' -sf '#484639' \
-    -nb '#484639' -nf '#f5f5f5')  
+    -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2')  
 fi
+
+notify-send "$word" "$notif"
+echo -n $notif | xclip -selection clipboard
+
+
