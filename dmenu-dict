@@ -1,12 +1,11 @@
 #!/bin/bash
 source apikey
-word=$(echo " " | dmenu -fn "FontAwesome" -p " seach for "  -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2')
+word=$(echo " " | dmenu -fn "FontAwesome" -p " search for "  -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2')
 
 if [ -n "$word" ]; then
-  response=$(curl --location --request GET "https://wordsapiv1.p.rapidapi.com/words/$word/definitions" \
-          --header "x-rapidapi-key: $APIKEY" \
-          --header 'x-rapidapi-host: wordsapiv1.p.rapidapi.com')
-  notif=$(echo $response | jq '.definitions[]? | "("+.partOfSpeech+") "+.definition ' | dmenu \
+  response=$(curl --location --request GET  "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
+  echo $response
+  notif=$(echo $response |  jq '.[]? | .meanings[]? | ["("+.partOfSpeech+") ", .definitions[]?.definition] | join(", ")' | dmenu \
     -fn "FontAwesome" -p " results " \
     -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2')  
 fi
