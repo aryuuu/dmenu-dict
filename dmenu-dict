@@ -10,7 +10,7 @@ if [ -n "$word" ]; then
     -l 5 -sb '#6272A4' -sf '#F8F8F2' -nb '#282A36' -nf '#F8F8F2' -shb '#6272A4' -shf '#FA485D' -nhb '#282A36' -nhf '#FA485D')  
 fi
 
-notif=$(echo $notif | sed -e $'s/.,/\\n -/g')
+notif=$(echo $notif | sed -e $'s/\.,/\\n -/g')
 
 notify-send "$word" "$notif"
 echo -n $notif | xclip -selection clipboard
